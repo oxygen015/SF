@@ -1,11 +1,11 @@
 -- SF SaveInstance v3.1 Init
 -- Modular Entry Point
 
-local config_module = _G.SF_REQUIRE("config.lua")
-local logger_module = _G.SF_REQUIRE("logger.lua")
-local ui_main       = _G.SF_REQUIRE("ui_main.lua")
-local ui_config     = _G.SF_REQUIRE("ui_config.lua")
-local saver         = _G.SF_REQUIRE("saver.lua")
+local config_module = SF_REQUIRE("config.lua")
+local logger_module = SF_REQUIRE("logger.lua")
+local ui_main       = SF_REQUIRE("ui_main.lua")
+local ui_config     = SF_REQUIRE("ui_config.lua")
+local saver         = SF_REQUIRE("saver.lua")
 
 local Config = config_module.Config
 local C      = config_module.C

@@ -1,5 +1,5 @@
-local config_module = _G.SF_REQUIRE("config.lua")
-local ui_helpers = _G.SF_REQUIRE("ui_helpers.lua")
+local config_module = SF_REQUIRE("config.lua")
+local ui_helpers = SF_REQUIRE("ui_helpers.lua")
 local C = config_module.C
 local ICON_ID = config_module.ICON_ID
 

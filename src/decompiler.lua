@@ -1,5 +1,5 @@
-local config_module = _G.SF_REQUIRE("config.lua")
-local logger_module = _G.SF_REQUIRE("logger.lua")
+local config_module = SF_REQUIRE("config.lua")
+local logger_module = SF_REQUIRE("logger.lua")
 local Config = config_module.Config
 local C = config_module.C
 

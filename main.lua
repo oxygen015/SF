@@ -1,38 +1,45 @@
---[[
-    SF SaveInstance v3.1 Loader
-    Modular Refactor by Antigravity
-    
-    This script loads the SF system from the /src directory.
---]]
-
-local BASE_PATH = "SF/src/" -- Adjust this if your folder name is different
-
-local function load_module(name)
-    local path = BASE_PATH .. name
-    if not readfile then
-        error("Executor does not support readfile. Modular SF requires readfile.")
-    end
-    
+local function get_content(path)
+    if not readfile then return nil end
     local ok, content = pcall(readfile, path)
-    if not ok or not content then
-        -- Try without the SF/ prefix just in case
-        path = "src/" .. name
-        ok, content = pcall(readfile, path)
-        if not ok or not content then
-            error("Could not find module: " .. name .. " at " .. path)
-        end
+    if ok and content and #content > 0 then
+        return content
     end
-    
-    local func, err = loadstring(content)
-    if not func then
-        error("Error compiling module " .. name .. ": " .. tostring(err))
-    end
-    
-    return func()
+    return nil
 end
 
--- Define global require for modules to use
-_G.SF_REQUIRE = load_module
+local function load_module(name)
+    local tried = {}
+    local cleaned_name = name:gsub("%.lua$", "")
+    local paths = {
+        "SF/src/" .. cleaned_name .. ".lua",
+        "src/" .. cleaned_name .. ".lua",
+        "SF/" .. cleaned_name .. ".lua",
+        cleaned_name .. ".lua",
+        "SF/src/" .. name,
+        "src/" .. name,
+        "SF/" .. name,
+        name
+    }
 
--- Start the system
+    for _, path in ipairs(paths) do
+        if not tried[path] then
+            tried[path] = true
+            table.insert(tried, path)
+            local content = get_content(path)
+            if content then
+                local func, err = loadstring(content)
+                if not func then
+                    error("Error compiling module " .. name .. " (" .. path .. "): " .. tostring(err))
+                end
+                return func()
+            end
+        end
+    end
+
+    error("Could not find module: " .. name .. "\n\nMake sure the 'SF' folder is in your workspace and contains 'src'.\n\nAttempted paths:\n - " .. table.concat(tried, "\n - "))
+end
+
+local env = (getgenv and getgenv()) or _G
+env.SF_REQUIRE = load_module
+
 load_module("init.lua")

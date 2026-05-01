@@ -1,5 +1,5 @@
 local TweenService = game:GetService("TweenService")
-local config_module = _G.SF_REQUIRE("config.lua")
+local config_module = SF_REQUIRE("config.lua")
 local C = config_module.C
 
 local Logger = {
