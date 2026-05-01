@@ -1,4 +1,4 @@
--- SF SaveInstance v3.1 Init
+-- SF SaveInstance v3.2 Init
 -- Modular Entry Point
 
 local config_module = SF_REQUIRE("config.lua")
@@ -28,7 +28,7 @@ local function RunSave()
     running = true
     logger_module.ResetAll()
     logger_module.SetStatus("Counting instances...", C.TEXT_MID)
-    logger_module.Log("------- SF SaveInstance v3.1 started -------", C.TEXT_HI)
+    logger_module.Log("------- SF SaveInstance v3.2 started -------", C.TEXT_HI)
     logger_module.Log(string.format(
         "scriptdump=%s  prettify=%s  timeout=%ds  chunkSize=%d  yieldEvery=%d  path=%s",
         tostring(Config.scriptdump), tostring(Config.prettify),
@@ -48,7 +48,7 @@ local function RunSave()
             if Config.logtofile and writefile then
                 local lname = saver.GetFileName()..".log"
                 pcall(writefile, (Config.savepath or "")..lname, table.concat({
-                    "SF SaveInstance Log  v3.1",
+                    "SF SaveInstance Log  v3.2",
                     os.date(),
                     "Place:   "..tostring(game.PlaceId),
                     "Saved:   "..Stats.saved,
@@ -90,7 +90,6 @@ local function RunSave()
     end)
 end
 
--- Tab switching logic
 local function showTab(which)
     GUI.savePage.Visible = (which == "save")
     GUI.cfgPage.Visible  = (which == "cfg")
@@ -136,7 +135,7 @@ GUI.clearBtn.MouseButton1Click:Connect(function()
     logger_module.Log("Log cleared.", C.TEXT_LOW)
 end)
 
-logger_module.Log("SF SaveInstance v3.1 loaded (Modular).", C.TEXT_HI)
+logger_module.Log("SF SaveInstance v3.2 loaded (Modular).", C.TEXT_HI)
 logger_module.Log("Parented to CoreGui — renders above Roblox menu.", C.BLUE)
 
 return {}
